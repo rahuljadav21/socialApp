@@ -15,6 +15,7 @@ var cors = require('cors');
 const {storage,cloudinary} = require('./cloudinary/index')
 const upload = multer({ storage });
 
+const PORT = process.env.PORT || 8800;
 
 dotenv.config()
 mongoose.connect(process.env.MONGO_URL,{useNewUrlParser:true},()=>{
@@ -60,6 +61,6 @@ app.use('/api/auth/',authRoutes);
 app.use('/api/posts/',postRoutes);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
-app.listen(8800,()=>{
+app.listen(PORT,()=>{
     console.log("BackEnd server is running on port 8800")
 })
