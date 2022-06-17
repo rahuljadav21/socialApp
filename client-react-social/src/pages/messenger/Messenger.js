@@ -6,6 +6,7 @@ import ChatOnline from '../../components/chatOnline/ChatOnline'
 import { useContext,useState,useEffect, useRef } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 import axios from 'axios';
+import {API,SOCKET_URL} from "../../constants.json"
 import {io} from 'socket.io-client'
 
 function Messenger() {
@@ -20,7 +21,7 @@ function Messenger() {
     const socket = useRef()
 
     useEffect(()=>{
-        socket.current = io("ws://social-socket21.herokuapp.com/")
+        socket.current = io(SOCKET_URL)
         socket.current.on("getMessage",(data)=>{
           setArrivalMessage({
             sender:data.senderId,
@@ -46,7 +47,7 @@ function Messenger() {
   
     useEffect(() => {
       const getConversation=async()=>{
-        const res = await axios.get('/conversations/'+user._id);
+        const res = await axios.get(API+'/conversations/'+user._id);
         setconversations(res.data);
       }
       getConversation();
@@ -56,7 +57,7 @@ function Messenger() {
       
       const getMessages = async()=>{
         try {
-          const res = await axios.get("/messages/"+currentChat?._id)
+          const res = await axios.get(API+"/messages/"+currentChat?._id)
           setMessages(res.data);
         }
          catch (error) {
@@ -83,7 +84,7 @@ function Messenger() {
       })
       
       try {
-        const res = await axios.post("/messages",message);
+        const res = await axios.post(API+"/messages",message);
         setMessages([...messages,res.data]);
         setNewMessage("");
       } catch (error) {
@@ -136,6 +137,7 @@ function Messenger() {
         <div className="chatOnline">
             <div className="chatOnlineWrapper">
             <ChatOnline
+              key={user._id}
               onlineUsers={onlineUsers}
               currentId={user._id}
               setCurrentChat={setCurrentChat}

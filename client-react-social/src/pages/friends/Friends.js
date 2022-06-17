@@ -1,5 +1,6 @@
 import CloseFriend from "../../components/closeFriend/CloseFriend";
 import axios from "axios";
+import {API} from "../../constants.json"
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from '../../context/AuthContext'
 import { Link } from "react-router-dom";
@@ -14,7 +15,7 @@ function Friends() {
     useEffect(() => {
 
         const getFriends = async () => {
-            const res = await axios.get('/users/friends/' + user._id);
+            const res = await axios.get(API+'/users/friends/' + user._id);
             setFriends(res.data);
         }
         getFriends();

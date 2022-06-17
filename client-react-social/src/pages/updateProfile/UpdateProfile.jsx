@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext'
 import "./updateProfile.css"
 import { AccountCircle,Cancel,PhotoSizeSelectActual } from "@material-ui/icons"
 import axios from 'axios';
-
+import {API} from "../../constants.json"
 function UpdateProfile() {
 
     const { user } = useContext(AuthContext);
@@ -34,7 +34,7 @@ function UpdateProfile() {
             data.append("file",profilePictureImg);
             data.append("name",fileName)
           try {
-               const res = await axios.post("/upload",data);
+               const res = await axios.post(API+"/upload",data);
                 userProfile.profilePicture = res.data.path 
               } catch (error) {
               console.log(error);
@@ -47,7 +47,7 @@ function UpdateProfile() {
             data.append("name",fileName)
             
           try {
-            const res= await axios.post("/upload",data);
+            const res= await axios.post(API+"/upload",data);
             userProfile.coverPicture = res.data.path 
               } catch (error) {
               console.log(error);
@@ -55,7 +55,7 @@ function UpdateProfile() {
         }
        
         try {
-            await axios.put('/users/'+user._id,userProfile);
+            await axios.put(API+'/users/'+user._id,userProfile);
             window.location.reload();
           } catch (error) {
             console.log(error);

@@ -3,6 +3,8 @@ import { useRef} from 'react'
 import axios from "axios";
 import {useNavigate} from "react-router"
 import { Link } from "react-router-dom";
+import {API} from "../../constants.json"
+
 export default function Register() {
   const username = useRef();
   const email = useRef();
@@ -21,7 +23,7 @@ export default function Register() {
         password : password.current.value,
       }
       try {
-        await axios.post('/auth/register',user);
+        await axios.post(API+'/auth/register',user);
         history("/login");
       } catch (error) {
         console.log(error);

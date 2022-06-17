@@ -4,7 +4,7 @@ import { useContext, useState ,useRef} from "react";
 import {AuthContext} from '../../context/AuthContext'
 import axios from "axios";
 import { Cancel } from "@material-ui/icons";
-
+import {API} from "../../constants.json"
 
 export default function Share() {
   const {user} = useContext(AuthContext); 
@@ -24,7 +24,7 @@ export default function Share() {
       data.append("name",fileName)
      
       try {
-        const res = await axios.post("/upload",data);
+        const res = await axios.post(API+"/upload",data);
         newPost.img = res.data.path
        
       } catch (error) {
@@ -33,7 +33,7 @@ export default function Share() {
     }
 
     try {
-      await axios.post('/posts',newPost);
+      await axios.post(API+'/posts',newPost);
       window.location.reload();
     } catch (error) {
       console.log(error);

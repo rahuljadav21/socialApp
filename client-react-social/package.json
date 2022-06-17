@@ -1,6 +1,5 @@
 {
   "name": "react-social",
-  "proxy": "https://social-developers.herokuapp.com/api",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

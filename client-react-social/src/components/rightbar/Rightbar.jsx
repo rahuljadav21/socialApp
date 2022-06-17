@@ -1,10 +1,11 @@
 import "./rightbar.css";
 import Online from "../online/Online";
 import axios from "axios";
+import {API,SOCKET_URL} from "../../constants.json"
 import { useState,useEffect, useContext,useRef } from "react";
 import { Link } from "react-router-dom";
 import {AuthContext} from '../../context/AuthContext'
-import { Add ,Edit,Remove} from "@material-ui/icons";
+import { Add ,Chat,Edit,Remove} from "@material-ui/icons";
 import {io} from 'socket.io-client'
 
 
@@ -16,7 +17,7 @@ export default function Rightbar({ user }) {
   const socket = useRef()
   
   useEffect(()=>{
-    socket.current = io("ws://localhost:8900");
+    socket.current = io(SOCKET_URL);
 },[])
 
 useEffect(()=>{
@@ -32,7 +33,7 @@ useEffect(()=>{
     
     const getFriends=async()=>{
       try {
-        const friendList = await axios.get("/users/friends/"+currentUser._id);
+        const friendList = await axios.get(API+"/users/friends/"+currentUser._id);
         setFriends(friendList.data); 
       } catch (err) {
         console.log(err)
@@ -45,10 +46,10 @@ useEffect(()=>{
   const handleClick =async()=>{
     try {
       if(followed){
-        await axios.put('/users/'+user._id+'/unfollow',{userId:currentUser._id})
+        await axios.put(API+'/users/'+user._id+'/unfollow',{userId:currentUser._id})
         dispatch({type:"UNFOLLOW",payload:user._id});
       }else{
-        await axios.put('/users/'+user._id+'/follow',{userId:currentUser._id})
+        await axios.put(API+'/users/'+user._id+'/follow',{userId:currentUser._id})
         dispatch({type:"FOLLOW",payload:user._id});
       }
     } catch (error) {
@@ -56,6 +57,14 @@ useEffect(()=>{
     }
     setFollowed(!followed)
   }
+
+  const startConversation = async() =>{
+    await axios.post(API+'/conversations/',{
+        senderId:user._id,receiverId:currentUser._id
+      });
+    window.location='/messenger';  
+  }
+
   const HomeRightbar = () => {
     return (
       <>
@@ -83,11 +92,16 @@ useEffect(()=>{
     return (
       <>
         {user.username!==currentUser.username && (
+          <>
           <button className="rightbarFollowButton" onClick={handleClick}>
             {followed ? "Unfollow" : "Follow"}
              {followed ? <Remove/> :<Add/>}           
 
           </button>
+          <button className="rightbarFollowButton" onClick={startConversation} >
+             Start Chat <Chat style={{marginLeft:"10px"}}/>
+          </button>
+        </>
         )}
 
         <div className="infoHeader">

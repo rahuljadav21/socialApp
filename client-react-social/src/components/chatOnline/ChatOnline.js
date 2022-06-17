@@ -1,5 +1,6 @@
 import './chatOnline.css'
 import axios from "axios";
+import {API} from "../../constants.json"
 import { useEffect, useState } from "react";
 
 function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
@@ -8,7 +9,7 @@ function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
 
   useEffect(() => {
     const getFriends = async () => {
-      const res = await axios.get("/users/friends/" + currentId);
+      const res = await axios.get(API+"/users/friends/" + currentId);
       setFriends(res.data);
     };
 
@@ -21,8 +22,7 @@ function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
 
   const handleClick = async (user) => {
     try {
-      const res = await axios.get(
-        `/conversations/find/${currentId}/${user._id}`
+      const res = await axios.get(API+`/conversations/find/${currentId}/${user._id}`
       );
       setCurrentChat(res.data);
     } catch (err) {

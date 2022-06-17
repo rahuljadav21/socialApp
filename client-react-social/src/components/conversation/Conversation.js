@@ -1,6 +1,7 @@
 import './conversation.css'
 import {useState,useEffect} from 'react';
 import axios from 'axios';
+import {API} from "../../constants.json"
 
 function Conversation({conversation,currentUser}) {
   const [user, setuser] = useState({})
@@ -8,7 +9,7 @@ function Conversation({conversation,currentUser}) {
     const friendId = conversation.members.find(m=>m !==currentUser._id);
     const getUser=async()=>{
       try {
-        const res = await axios.get("/users/?userId="+friendId);
+        const res = await axios.get(API+"/users/?userId="+friendId);
         setuser(res.data);
       } catch (error) {
         console.log(error)

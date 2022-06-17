@@ -8,7 +8,7 @@ import axios from "axios";
 import { useContext,useState,useEffect } from "react";
 import {AuthContext} from '../../context/AuthContext'
 import { Link } from "react-router-dom";
-
+import {API} from "../../constants.json"
 export default function Sidebar() {
    
   const [friends, setFriends] = useState([]);
@@ -16,7 +16,7 @@ export default function Sidebar() {
   useEffect(() => {
     
     const getFriends = async() =>{
-      const res = await axios.get('/users/friends/'+user._id);
+      const res = await axios.get(API+'/users/friends/'+user._id);
       setFriends(res.data);
     }
     getFriends();

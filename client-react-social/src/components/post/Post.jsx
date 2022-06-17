@@ -6,6 +6,7 @@ import {format} from 'timeago.js'
 import {Link} from 'react-router-dom'
 import { useContext } from "react";
 import {AuthContext} from '../../context/AuthContext'
+import {API} from "../../constants.json"
 
 
 export default function Post({ post }) {
@@ -15,7 +16,7 @@ export default function Post({ post }) {
   const [user,setUser] = useState({})
 
   const deletePost= async()=>{
-    await axios.delete('/posts/'+post._id,{
+    await axios.delete(API+'/posts/'+post._id,{
       data: {
         userId: currentUser._id
       }
@@ -26,7 +27,7 @@ export default function Post({ post }) {
   useEffect(()=>{
    
     const fetchUser = async()=>{
-     const res = await axios.get(`users/${post.userId}`);
+     const res = await axios.get(API+`/users/${post.userId}`);
      setUser(res.data);
     }
     fetchUser()
@@ -38,7 +39,7 @@ export default function Post({ post }) {
  
   const likeHandler =()=>{
     try {
-      axios.put('/posts/'+post._id+'/like',{userId:currentUser._id})
+      axios.put(API+'/posts/'+post._id+'/like',{userId:currentUser._id})
       
     } catch (error) {
       console.log(error);

@@ -6,7 +6,7 @@ import Rightbar from "../../components/rightbar/Rightbar";
 import { useState,useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
-
+import {API} from "../../constants.json"
 
 export default function Profile() {
 
@@ -15,7 +15,7 @@ export default function Profile() {
  
   useEffect(()=>{
     const fetchUser = async ()=>{
-     const res = await axios.get(`/users/?username=${username}`);
+     const res = await axios.get(API+`/users/?username=${username}`);
      setUser(res.data);
     }
     fetchUser()

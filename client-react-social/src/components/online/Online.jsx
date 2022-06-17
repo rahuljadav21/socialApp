@@ -1,13 +1,13 @@
 import "./online.css";
 import { useEffect,useState } from "react";
 import axios from "axios";
-
+import {API} from "../../constants.json"
 export default function Online({online}) {
 
   const [user,setUser] = useState({})
   useEffect(() => {
     const getUser = async()=>{
-      const res = await axios.get('/users/'+online)
+      const res = await axios.get(API+'/users/'+online)
       setUser(res.data);
     }
     getUser()
