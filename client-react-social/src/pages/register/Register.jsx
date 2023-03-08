@@ -23,6 +23,7 @@ export default function Register() {
         password : password.current.value,
       }
       try {
+        console.log(user);
         await axios.post(API+'/auth/register',user);
         history("/login");
       } catch (error) {

@@ -1,5 +1,5 @@
 {
     "SERVER_PUBLIC_URL":"http://localhost:8800/images/",
-    "API":"https://social-developers.herokuapp.com/api",
+    "API":"https://social-app-neon.vercel.app/api",
     "SOCKET_URL":"https://social-socket21.herokuapp.com/"
 }
