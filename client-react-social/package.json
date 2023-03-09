@@ -17,7 +17,7 @@
     "timeago.js": "^4.0.2",
     "web-vitals": "^1.0.1"
   },
-  "proxy": "https://social-app-neon.vercel.app/api/",
+  "proxy": "https://social-app-neon.vercel.app",
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
