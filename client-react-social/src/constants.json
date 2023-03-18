@@ -1,5 +1,5 @@
 {
-    "SERVER_PUBLIC_URL":"http://localhost:8800/images/",
-    "API":"https://social-app-neon.vercel.app/api",
-    "SOCKET_URL":"https://social-socket21.herokuapp.com/"
+    "SERVER_PUBLIC_URL":"https://bs-backend-wor3.onrender.com/images/",
+    "API":"https://bs-backend-wor3.onrender.com/api",
+    "SOCKET_URL":"https://bs-socket.onrender.com/"
 }
